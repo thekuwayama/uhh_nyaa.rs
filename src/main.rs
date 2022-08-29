@@ -20,14 +20,20 @@ fn print_loop(ss: &[&str], interval: u64) -> ! {
 }
 
 fn build_loop_s(s: &str, head: usize, max: usize) -> String {
-    let s = " ".repeat(head % max) + s;
-    let (s, t) = unicode_trancate(&s, max);
-    let t_width = t.width();
-    t + &s[t_width..]
+    let mut s = " ".repeat(head % max) + s;
+    if let Some(t) = unicode_pop_n(&mut s, max) {
+        let t_width = t.width();
+        return t + &s[t_width..];
+    }
+
+    s
 }
 
-fn unicode_trancate(s: &str, max: usize) -> (String, String) {
-    let mut s = s.to_string();
+fn unicode_pop_n(s: &mut String, max: usize) -> Option<String> {
+    if s.width() <= max {
+        return None;
+    }
+
     let mut buf = "".to_string();
     while s.width() > max {
         if let Some(t) = s.pop() {
@@ -35,7 +41,7 @@ fn unicode_trancate(s: &str, max: usize) -> (String, String) {
         }
     }
 
-    (s, buf)
+    Some(buf)
 }
 
 fn main() {

@@ -10,7 +10,7 @@ fn print_loop(ss: &[&str], interval: u64) -> ! {
     loop {
         ss.iter().for_each(|s| {
             let (_, x) = term.size();
-            let s = build_loop_s(&s, now.elapsed().as_secs() as usize, x as usize);
+            let s = build_loop_s(s, now.elapsed().as_secs() as usize, x as usize);
             term.write_line(&s).unwrap();
             thread::sleep(Duration::from_millis(interval));
             term.move_cursor_up(1).unwrap();
@@ -27,7 +27,7 @@ fn build_loop_s(s: &str, head: usize, max: usize) -> String {
 }
 
 fn unicode_trancate(s: &str, max: usize) -> (String, String) {
-    let mut s = s.clone().to_string();
+    let mut s = s.to_string();
     let mut buf = "".to_string();
     while s.width() > max {
         if let Some(t) = s.pop() {

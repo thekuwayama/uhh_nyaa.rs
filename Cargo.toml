@@ -2,10 +2,10 @@
 name = "uhh_nyaa"
 version = "0.1.0"
 authors = ["thekuwayama <thekuwayama@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-console = "0.14"
+console = "0.15"
 unicode-width = "0.1"
